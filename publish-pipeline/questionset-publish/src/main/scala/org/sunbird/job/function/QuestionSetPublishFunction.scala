@@ -46,6 +46,14 @@ class QuestionSetPublishFunction(config: QuestionSetPublishConfig, httpUtil: Htt
 		if (messages.isEmpty) {
 			//TODO: enrichObject should take a function as parameter for enriching questionset hierarchy as it requires internal question publish
 			val enrichedObj = enrichObject(obj)(neo4JUtil)
+			// get all the questions from hierarchy
+			// Publish all child Question
+			// Enrich Hierarchy
+			// Generate Flat List[Map] for ecar generation
+			// Generate Ecar
+			// Prepare the flat list of all child question for pdf generation
+			// generate pdf
+
 			//TODO: Implement the dummyFunc function to save hierarchy into cassandra.
 			saveOnSuccess(enrichedObj, dummyFunc)(neo4JUtil)
 			logger.info("QuestionSet publishing completed successfully for : " + data.identifier)

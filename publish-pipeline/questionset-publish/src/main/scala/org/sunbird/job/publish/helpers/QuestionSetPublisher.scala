@@ -1,7 +1,7 @@
 package org.sunbird.job.publish.helpers
 
 import com.datastax.driver.core.querybuilder.{QueryBuilder, Select}
-import org.sunbird.job.util.{CassandraUtil, JSONUtil}
+import org.sunbird.job.util.{CassandraUtil, ScalaJsonUtil}
 import org.sunbird.publish.core.{ExtDataConfig, ObjectData}
 import org.sunbird.publish.helpers.{ObjectEnrichment, ObjectReader, ObjectUpdater, ObjectValidator}
 
@@ -21,8 +21,8 @@ trait QuestionSetPublisher extends ObjectReader with ObjectValidator with Object
 	override def getHierarchy(identifier: String, readerConfig: ExtDataConfig)(implicit cassandraUtil: CassandraUtil): Option[Map[String, AnyRef]] = {
 		val row = getQuestionSetHierarchy(identifier, readerConfig)
 		if (null != row) {
-			val data = JSONUtil.deserialize[java.util.Map[String, AnyRef]](row.getString("hierarchy"))
-			Option(data.asScala.toMap)
+			val data: Map[String, AnyRef] = ScalaJsonUtil.deserialize[Map[String, AnyRef]](row.getString("hierarchy"))
+			Option(data)
 		} else Option(Map())
 	}
 
