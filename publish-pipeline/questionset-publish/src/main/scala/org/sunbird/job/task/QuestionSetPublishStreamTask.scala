@@ -51,7 +51,8 @@ object QuestionSetPublishStreamTask {
 		val publishConfig = new QuestionSetPublishConfig(config)
 		val kafkaUtil = new FlinkKafkaConnector(publishConfig)
 		val httpUtil = new HttpUtil
-		//val cloudStoreUtil = new CloudStorageUtil(publishConfig)
+		val cloudStoreUtil = new CloudStorageUtil(publishConfig)
+		cloudStoreUtil.getService
 		val task = new QuestionSetPublishStreamTask(publishConfig, kafkaUtil, httpUtil)
 		task.process()
 	}
